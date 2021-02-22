@@ -15,8 +15,8 @@ class CreateVendasTable extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_maquina');
-            $table->foreign('id_maquina')->references('id')->on('maquinas');
+            $table->unsignedBigInteger('id_bomba');
+            $table->foreign('id_bomba')->references('id')->on('bombas');
             $table->unsignedBigInteger('id_combustivel');
             $table->foreign('id_combustivel')->references('id')->on('combustiveis');
             $table->decimal('litros_comprados', 8, 2);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCombustiveisMaquinasTable extends Migration
+class CreateCombustiveisBombasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCombustiveisMaquinasTable extends Migration
      */
     public function up()
     {
-        Schema::create('combustiveis_maquinas', function (Blueprint $table) {
+        Schema::create('combustiveis_bombas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_combustivel');
             $table->foreign('id_combustivel')->references('id')->on('combustiveis');
-            $table->unsignedBigInteger('id_maquina');
-            $table->foreign('id_maquina')->references('id')->on('maquinas');
+            $table->unsignedBigInteger('id_bomba');
+            $table->foreign('id_bomba')->references('id')->on('bombas');
+            $table->boolean('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
