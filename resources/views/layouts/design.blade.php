@@ -78,7 +78,7 @@
                 </div>
             </li>
             <hr class="sidebar-divider my-0">
-            @if(!Auth::check())
+            @if(Auth::check())
              <li class="nav-item active">
                 <form action="{{route('logout')}}" id="logout" method="POST">
                   @csrf
@@ -111,7 +111,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            @if(!Auth::check())
+                            @if(Auth::check())
                              <li class="nav-item active">
                                 <form action="{{route('logout')}}" id="logout" method="POST">
                                   @csrf

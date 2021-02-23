@@ -15,10 +15,10 @@ class CreateCombustiveisBombasTable extends Migration
     {
         Schema::create('combustiveis_bombas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_combustivel');
-            $table->foreign('id_combustivel')->references('id')->on('combustiveis');
             $table->unsignedBigInteger('id_bomba');
             $table->foreign('id_bomba')->references('id')->on('bombas');
+            $table->unsignedBigInteger('id_combustivel');
+            $table->foreign('id_combustivel')->references('id')->on('combustiveis');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
