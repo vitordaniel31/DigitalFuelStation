@@ -50,7 +50,7 @@
                                             <td>R$ {{$combustivel->preco}}</td>
                                             <td>{{$combustivel->capacidade}} Litros</td>
                                             <td>{{$combustivel->qtd_restante}} Litros</td>
-                                            <td><a class="btn btn-secondary" href="./editarcombustivel.html" role="button">Editar</a>
+                                            <td><button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('combustivel.edit', [$combustivel->id])}}'">Editar</i></button>
                                             <button type="button" class="btn btn-secondary">Deletar</td>
                                         </tr>
                                         @endforeach

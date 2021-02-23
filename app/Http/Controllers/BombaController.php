@@ -18,7 +18,8 @@ class BombaController extends Controller
     public function index()
     {
         $bombas = Bomba::withTrashed()->get();
-        return view('bomba.index')->with('bombas', $bombas);
+        $combustiveis = CombustivelBomba::join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->orderBy('combustivel')->get();
+        return view('bomba.index')->with('bombas', $bombas)->with('combustiveis', $combustiveis);
     }
 
     /**
@@ -42,8 +43,11 @@ class BombaController extends Controller
     {
         $request->validate([
             'codigo' => 'required|integer|unique:bombas',
-            'combustiveis[]*' => 'required|integer|distinct|exists:combustiveis,id',
+            'combustiveis' => "required|array|min:1",
+            'combustiveis.*' => 'required|integer|distinct|exists:combustiveis,id',
         ]);
+
+        $combustiveis = $request->combustiveis;
 
         $user = User::find(1);
 
@@ -52,10 +56,11 @@ class BombaController extends Controller
             'password' => $user->password,
         ]);
 
-        foreach ($combustiveis as $combustivel) { 
-            $combustivelBomba = CombustivelBomba();
-            $combustivelBomba->id_bomba = $bomba->id;
-            $combustivelBomba->id_combutivel = $combustivel->id;
+        foreach($combustiveis as $key => $combustivel) { 
+            $combustivelBomba = CombustivelBomba::create([
+                'id_combustivel' => $combustivel,
+                'id_bomba' => $bomba->id,
+            ]);
         }
 
         return redirect(route('bomba.index'))->with('alert-success', 'Bomba registrada com sucesso!');
@@ -81,8 +86,11 @@ class BombaController extends Controller
     public function edit($id)
     {
         $bomba = Bomba::find($id);
+        $combustiveis = Combustivel::all();
+        $combustiveisBombas = CombustivelBomba::where('id_bomba', $id)->get();
+    
         if ($bomba) {
-            return view('bomba.edit')->with('bomba', $bomba);
+            return view('bomba.edit')->with('bomba', $bomba)->with('combustiveis', $combustiveis)->with('combustiveisBombas', $combustiveisBombas);
         }else{
             return redirect(route('bomba.index'))->with('alert-primary', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');
         }
@@ -99,15 +107,38 @@ class BombaController extends Controller
     {
         $request->validate([
             'codigo' => 'integer|unique:bombas,codigo,' . $id . ',id',
+            'combustiveis' => "required|array|min:1",
+            'combustiveis.*' => 'required|integer|distinct|exists:combustiveis,id',
         ]);
 
-        if (!isset($request->status)) $request->status = 0;
+        $combustiveis = $request->combustiveis;
 
         $bomba = Bomba::find($id);
         if ($bomba) {
             $bomba->update([
                 'codigo' => $request->codigo,   
             ]);
+
+            foreach($combustiveis as $key => $combustivel) {
+                $consulta = CombustivelBomba::where('id_bomba', $id)->where('id_combustivel', $combustivel)->first();
+                if (!$consulta) {
+                    $combustivelBomba = CombustivelBomba::create([
+                        'id_combustivel' => $combustivel,
+                        'id_bomba' => $id,
+                    ]);
+                }
+            }
+
+            $combustiveisBombas = CombustivelBomba::where('id_bomba', $id)->get();
+            foreach ($combustiveisBombas as $cb) {
+                
+                if (!in_array($cb->id_combustivel, $combustiveis)) {
+                    $consulta2 = CombustivelBomba::find($cb->id);
+                    $consulta2->delete();
+                }
+            }
+
+
             return redirect(route('bomba.index'))->with('alert-success', 'Os dados da bomba foram editados com sucesso!');
         }else{
             return redirect(route('bomba.index'))->with('alert-primary', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');

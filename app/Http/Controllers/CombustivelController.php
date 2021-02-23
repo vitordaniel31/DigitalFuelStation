@@ -88,7 +88,7 @@ class CombustivelController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'combustivel' => 'string|max:255|unique:combustiveis',
+            'combustivel' => 'string|max:255|unique:combustiveis,combustivel,' . $id . ',id',
             'preco' => 'numeric',
             'capacidade' => 'numeric',
         ]);

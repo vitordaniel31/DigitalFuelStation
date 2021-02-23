@@ -33,19 +33,18 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        @foreach ($bombas as $bomba)
                                         <tr>
-                                            <td>1</td>
-                                            <td>Gasolina Aditivada</td>
-                                            <td><a class="btn btn-secondary" href="./editarbomba.html" role="button">Editar</a>
-                                            <button type="button" class="btn btn-secondary">Deletar</td>
+                                            <td>{{$bomba->codigo}}</td>
+                                            <td>@foreach ($combustiveis as $combustivel)
+                                                @if($bomba->id == $combustivel->id_bomba)
+                                                    {{$combustivel->combustivel}}<br>
+                                                @endif
+                                            @endforeach
+                                            </td>
+                                            <td><button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.edit', [$bomba->id])}}'">Editar</i></button></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Gasolina Comum</td>
-                                            <td><a class="btn btn-secondary" href="./editarbomba.html" role="button">Editar</a>
-                                            <button type="button" class="btn btn-secondary">Deletar</td>
-                                        </tr>
-                                    
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
