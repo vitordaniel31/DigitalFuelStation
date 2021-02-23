@@ -19,7 +19,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{asset('DigitalFuelStation/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('DigitalFuelStation/css/sb-admin-2.css')}}" rel="stylesheet">
 
 </head>
 
@@ -44,29 +44,33 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bem Vindo</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" id="login" method="POST" action="{{route('login')}}">
+                                        @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Insira seu email:" name="email">
+                                            @error('email')
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="exampleInputPassword" placeholder="Senha:" name="password">
+                                            @error('password')
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a href="design.html" class="btn btn-danger btn-user btn-block">
+                                        <a onclick="document.getElementById('login').submit();" class="btn btn-danger btn-user btn-block">
                                             Login
                                         </a>
                                     </form>
                                     <div class="text-center ">
-                                        <a class="small text-dark" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small text-dark" href="forgot-password.html">Esqueceu sua senha?</a>
                                     </div>
                                 </div>
                             </div>
