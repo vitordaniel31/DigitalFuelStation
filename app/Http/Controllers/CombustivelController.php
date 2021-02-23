@@ -134,4 +134,23 @@ class CombustivelController extends Controller
             return redirect(route('combustivel.index'))->with('alert-primary', 'Combustível ativo ou inexistente! Informe um combustível inativo para conseguir ativá-lo!');
         }
     }
+
+    public function abastecer($id)
+    {
+        $combustivel = Combustivel::find($id);
+        return view('combustivel.abastecimento')->with('combustivel', $combustivel);
+    }
+
+    public function abastecimento(Request $request, $id)
+    {
+        $combustivel = Combustivel::find($id);
+        $request->validate([
+            'quantidade' => 'required|integer|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+        ]);
+        $combustivel->update([
+            'qtd_restante' => $combustivel->qtd_restante + $request->quantidade,
+        ]);
+
+        return redirect(route('combustivel.abastecer', [$id]))->with('alert-success', 'Quantidade de combustível atualizada com sucesso!');
+    }
 }

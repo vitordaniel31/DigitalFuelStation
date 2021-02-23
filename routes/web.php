@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BombaController;
 use App\Http\Controllers\CombustivelController;
+use App\Models\Combustivel;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,8 @@ use App\Http\Controllers\CombustivelController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $combustiveis = Combustivel::withTrashed()->get();
+    return view('index')->with('combustiveis', $combustiveis);
 })->name('home');
 
 Route::get('/dashboard', function () {
@@ -37,6 +39,8 @@ Route::group(['prefix' => 'bomba'], function(){
 
 Route::group(['prefix' => 'combustivel'], function(){
 	Route::get('/', [CombustivelController::class, 'index'])->name('combustivel.index');
+	Route::get('/abastecer/{id}', [CombustivelController::class, 'abastecer'])->name('combustivel.abastecer');
+	Route::post('/abastecer/{id}', [CombustivelController::class, 'abastecimento'])->name('combustivel.abastecimento');
 	Route::get('/create', [CombustivelController::class, 'create'])->name('combustivel.create');
 	Route::post('/', [CombustivelController::class, 'store'])->name('combustivel.store');
 	Route::get('/edit/{id}', [CombustivelController::class, 'edit'])->name('combustivel.edit');
