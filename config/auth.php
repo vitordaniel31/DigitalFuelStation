@@ -1,4 +1,4 @@
-<?php
+r<?php
 
 return [
 
@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'bomba' => [
+            'driver' => 'session',
+            'provider' => 'bombas',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -69,6 +74,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'bombas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Bomba::class,
         ],
 
         // 'users' => [
@@ -99,6 +108,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        
     ],
 
     /*

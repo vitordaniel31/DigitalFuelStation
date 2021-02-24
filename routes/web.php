@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BombaController;
 use App\Http\Controllers\CombustivelController;
+use App\Http\Controllers\VendaController;
 use App\Models\Combustivel;
 
 /*
@@ -19,7 +20,7 @@ use App\Models\Combustivel;
 Route::get('/', function () {
     $combustiveis = Combustivel::withTrashed()->get();
     return view('index')->with('combustiveis', $combustiveis);
-})->name('home');
+})->middleware('auth')->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -27,7 +28,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'bomba'], function(){
+Route::group(['prefix' => 'bomba', 'middleware' => 'auth'], function(){
 	Route::get('/', [BombaController::class, 'index'])->name('bomba.index');
 	Route::get('/create', [BombaController::class, 'create'])->name('bomba.create');
 	Route::post('/', [BombaController::class, 'store'])->name('bomba.store');
@@ -35,9 +36,10 @@ Route::group(['prefix' => 'bomba'], function(){
 	Route::put('/update/{id}', [BombaController::class, 'update'])->name('bomba.update');
 	Route::delete('/{id}', [BombaController::class, 'destroy'])->name('bomba.destroy');
 	Route::put('/{id}', [BombaController::class, 'restore'])->name('bomba.restore');
+
 });
 
-Route::group(['prefix' => 'combustivel'], function(){
+Route::group(['prefix' => 'combustivel', 'middleware' => 'auth'], function(){
 	Route::get('/', [CombustivelController::class, 'index'])->name('combustivel.index');
 	Route::get('/abastecer/{id}', [CombustivelController::class, 'abastecer'])->name('combustivel.abastecer');
 	Route::post('/abastecer/{id}', [CombustivelController::class, 'abastecimento'])->name('combustivel.abastecimento');
@@ -48,3 +50,19 @@ Route::group(['prefix' => 'combustivel'], function(){
 	Route::delete('/{id}', [CombustivelController::class, 'destroy'])->name('combustivel.destroy');
 	Route::put('/{id}', [CombustivelController::class, 'restore'])->name('combustivel.restore');
 });
+
+Route::group(['prefix' => 'venda', 'middleware' => 'bomba'], function(){
+	Route::get('/', [VendaController::class, 'index'])->name('venda.index');
+	Route::post('/', [VendaController::class, 'store'])->name('venda.store');
+});
+
+Route::get('/bomba/login', [BombaController::class, 'createLogin'])
+				->middleware('guest')
+                ->name('bomba.createLogin');
+
+Route::post('/bomba/login', [BombaController::class, 'storeLogin'])
+                ->middleware('guest')
+                ->name('bomba.storeLogin');
+
+Route::post('/bomba/logout', [BombaController::class, 'destroyLogin'])
+                ->name('bomba.logout');

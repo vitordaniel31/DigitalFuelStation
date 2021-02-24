@@ -16,7 +16,7 @@
                             <h6 class="m-0 font-weight-bold text-danger">Combustíveis Cadastrados</h6>
                         </div>
                         <div class="card-body">
-                            @foreach (['primary', 'success'] as $msg)
+                            @foreach (['danger', 'success'] as $msg)
                                 @if(Session::has('alert-' . $msg))
                                   <div class="alert alert-{{ $msg }}" role="alert">
                                     {{ Session::get('alert-' . $msg) }}

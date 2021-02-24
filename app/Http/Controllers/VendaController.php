@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Bomba;
+use App\Models\Venda;
 
 class VendaController extends Controller
 {
@@ -13,7 +15,7 @@ class VendaController extends Controller
      */
     public function index()
     {
-        //
+        return view('venda.index');
     }
 
     /**
@@ -34,7 +36,29 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $codigo_bomba = \Auth::guard('bomba')->user()->codigo;
+        $bomba = Bomba::where('codigo', $codigo_bomba)->first();
+        if ($bomba) {
+            $id_bomba = $bomba->id;
+            $request->validate([
+                'id_combustivel' => 'required|integer|exists:combustiveis_bombas,id_combustivel,id_bomba' . $id_bomba,
+                'preco' => 'required|numeric',
+                'capacidade' => 'required|numeric',
+            ]);
+        }
+        $request->validate([
+            'id_combustivel' => 'required|integer|exists:combustiveis_bombas,id',
+            'preco' => 'required|numeric',
+            'capacidade' => 'required|numeric',
+        ]);
+
+        $combustivel = Combustivel::create([
+            'combustivel' => $request->combustivel,
+            'preco' => $request->preco,
+            'capacidade' => $request->capacidade,
+            'qtd_restante' => 0,
+        ]);
+        return redirect(route('combustivel.index'))->with('alert-success', 'Combustível registrado com sucesso!');
     }
 
     /**

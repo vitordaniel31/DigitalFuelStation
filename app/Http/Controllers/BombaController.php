@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Bomba;
 use App\Models\User;
 use App\Models\Combustivel;
 use App\Models\CombustivelBomba;
+use App\Http\Requests\Auth\BombaRequest;
+use App\Providers\RouteServiceProvider;
 
 class BombaController extends Controller
 {
@@ -42,7 +45,7 @@ class BombaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'codigo' => 'required|integer|unique:bombas',
+            'codigo' => 'required|integer|min:1|max:99|unique:bombas',
             'combustiveis' => "required|array|min:1",
             'combustiveis.*' => 'required|integer|distinct|exists:combustiveis,id',
         ]);
@@ -92,7 +95,7 @@ class BombaController extends Controller
         if ($bomba) {
             return view('bomba.edit')->with('bomba', $bomba)->with('combustiveis', $combustiveis)->with('combustiveisBombas', $combustiveisBombas);
         }else{
-            return redirect(route('bomba.index'))->with('alert-primary', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');
+            return redirect(route('bomba.index'))->with('alert-danger', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');
         }
     }
 
@@ -106,7 +109,7 @@ class BombaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'codigo' => 'integer|unique:bombas,codigo,' . $id . ',id',
+            'codigo' => 'integer|min:1|max:99|unique:bombas,codigo,' . $id . ',id',
             'combustiveis' => "required|array|min:1",
             'combustiveis.*' => 'required|integer|distinct|exists:combustiveis,id',
         ]);
@@ -141,7 +144,7 @@ class BombaController extends Controller
 
             return redirect(route('bomba.index'))->with('alert-success', 'Os dados da bomba foram editados com sucesso!');
         }else{
-            return redirect(route('bomba.index'))->with('alert-primary', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');
+            return redirect(route('bomba.index'))->with('alert-danger', 'Bomba inativa ou inexistente! Informe uma bomba ativa para conseguir editar!');
         }
 
     }
@@ -159,7 +162,7 @@ class BombaController extends Controller
             $bomba->delete();
             return redirect(route('bomba.index'))->with('alert-success', 'Bomba inativada com sucesso!');
         }else{
-            return redirect(route('bomba.index'))->with('alert-primary', 'Bomba inativa ou inexistente! Informe um bomba ativa para conseguir excluir!');
+            return redirect(route('bomba.index'))->with('alert-danger', 'Bomba inativa ou inexistente! Informe um bomba ativa para conseguir excluir!');
         }
     }
 
@@ -170,7 +173,32 @@ class BombaController extends Controller
             $bomba->restore();
             return redirect(route('bomba.index'))->with('alert-success', 'Bomba ativada com sucesso!');
         }else{
-            return redirect(route('bomba.index'))->with('alert-primary', 'Bomba ativa ou inexistente! Informe uma bomba inativa para conseguir ativá-la!');
+            return redirect(route('bomba.index'))->with('alert-danger', 'Bomba ativa ou inexistente! Informe uma bomba inativa para conseguir ativá-la!');
         }
+    }
+
+    public function createLogin(){
+        return view('bomba.login');
+    }
+
+    public function storeLogin(Request $request){
+        $credentials = $request->only('codigo', 'password');
+
+        if (Auth::guard('bomba')->attempt($credentials)) {
+            // Authentication passed...
+            return redirect(route('venda.index'));
+        }else{
+            return redirect(route('bomba.createLogin'))->with('alert-danger', 'Dados incorretos!');
+        }
+    }
+
+    public function destroyLogin(Request $request){
+        Auth::guard('bomba')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect(route('bomba.createLogin'));
     }
 }

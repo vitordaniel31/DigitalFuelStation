@@ -36,11 +36,13 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'username' => env('MAIL_USERNAME', 'digitalfuelstation@gmail.com'),
+            'password' => env('MAIL_PASSWORD', 'wzpvoawnzppmumvk'),
+            'address' => env('MAIL_FROM_ADDRESS', 'digitalfuelstation@gmail.com'),
+            'name' => env('MAIL_FROM_NAME', 'Digital Fuel Station'),
             'timeout' => null,
             'auth_mode' => null,
         ],

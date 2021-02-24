@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title >Digital Fuel Station - DFS</title>
+    <title>Digital Fuel Station - DFS</title>
     <link rel="shortcut icon" href="{{asset('DigitalFuelStation/icon.png')}}" type="image/x-icon">
 
 

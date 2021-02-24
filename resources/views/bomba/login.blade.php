@@ -44,13 +44,20 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bem Vindo</h1>
                                     </div>
-                                    <form class="user" id="login" method="POST" action="{{route('login')}}">
+                                    @foreach (['danger', 'success'] as $msg)
+                                        @if(Session::has('alert-' . $msg))
+                                          <div class="alert alert-{{ $msg }}" role="alert">
+                                            {{ Session::get('alert-' . $msg) }}
+                                          </div>
+                                        @endif
+                                    @endforeach
+                                    <form class="user" id="login" method="POST" action="{{route('bomba.storeLogin')}}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="integer" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Insira seu email:" name="email">
-                                            @error('email')
+                                                placeholder="Insira o código da bomba:" name="codigo">
+                                            @error('codigo')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
                                                 </div>
