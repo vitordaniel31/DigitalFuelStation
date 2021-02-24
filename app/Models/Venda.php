@@ -14,8 +14,7 @@ class Venda extends Model
     protected $table = 'vendas';
 
     protected $fillable = [
-        'id_maquina',
-        'id_combustivel_maquina',
+        'id_combustivel_bomba',
         'litros_comprados',
         'valor',
     ];

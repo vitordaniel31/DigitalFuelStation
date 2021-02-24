@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Bomba;
 use App\Models\Venda;
+use App\Models\Combustivel;
+use App\Models\CombustivelBomba;
 
 class VendaController extends Controller
 {
@@ -15,7 +17,8 @@ class VendaController extends Controller
      */
     public function index()
     {
-        return view('venda.index');
+        $combustiveis = Combustivel::all();
+        return view('venda.index')->with('combustiveis', $combustiveis);
     }
 
     /**
@@ -41,24 +44,28 @@ class VendaController extends Controller
         if ($bomba) {
             $id_bomba = $bomba->id;
             $request->validate([
-                'id_combustivel' => 'required|integer|exists:combustiveis_bombas,id_combustivel,id_bomba' . $id_bomba,
-                'preco' => 'required|numeric',
-                'capacidade' => 'required|numeric',
+                'id_combustivel' => 'required|integer|exists:combustiveis_bombas,id_combustivel,id_bomba,' . $id_bomba,
             ]);
-        }
-        $request->validate([
-            'id_combustivel' => 'required|integer|exists:combustiveis_bombas,id',
-            'preco' => 'required|numeric',
-            'capacidade' => 'required|numeric',
-        ]);
+            $id_combustivel = $request->id_combustivel;
+            $combustivel = Combustivel::find($id_combustivel);
+            $qtd_restante = $combustivel->qtd_restante;
+            $preco = $combustivel->preco;
+            $request->validate([
+                'quantidade' => 'required|numeric|between:0.01,'.$qtd_restante,
+            ]);
+            $combustivel_bomba = CombustivelBomba::where('id_bomba', $id_bomba)->where('id_combustivel', $id_combustivel)->first();
+            $valor = $request->quantidade * $preco;
+            $venda = Venda::create([
+                'id_combustivel_bomba' => $combustivel_bomba,
+                'litros_comprados' => $request->quantidade,
+                'valor' => $valor,
+            ]);
+            $combustivel_bomba->update([
+                'status' => 1,      
+            ]);
 
-        $combustivel = Combustivel::create([
-            'combustivel' => $request->combustivel,
-            'preco' => $request->preco,
-            'capacidade' => $request->capacidade,
-            'qtd_restante' => 0,
-        ]);
-        return redirect(route('combustivel.index'))->with('alert-success', 'Combustível registrado com sucesso!');
+        }
+        return redirect(route('venda.index'))->with('alert-success', 'Compra realizada com sucesso! Realize o abastecimento!');
     }
 
     /**

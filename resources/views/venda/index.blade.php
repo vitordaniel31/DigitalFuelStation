@@ -90,6 +90,13 @@
                     <!-- Content Row -->
                     <div class="row">
                         <div class="container-fluid">
+                        	@foreach (['danger', 'success'] as $msg)
+                                @if(Session::has('alert-' . $msg))
+                                  <div class="alert alert-{{ $msg }}" role="alert">
+                                    {{ Session::get('alert-' . $msg) }}
+                                  </div>
+                                @endif
+                            @endforeach
                             <!-- Page Heading -->
                             <div class="row">
                                 <!-- Area Chart -->
@@ -97,52 +104,50 @@
                                     <div class="card shadow mb-6">
                                         <div class="card-body">
                                             <label >Selecione o tipo de combustível: </label>
-                                            <form action="" method="POST">
+                                            <form action="{{route('venda.store')}}" method="POST">
                                             	@csrf
                                             	<input type="hidden" id="combustivel" name="id_combustivel" value="0">
+                                            	@foreach ($combustiveis as $combustivel)
                                                 <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div id="card1" class="card border-left-danger shadow h-100 py-2" onclick="select(1);">
+                                                    <div id="card{{$combustivel->id}}" class="card border-left-danger shadow h-100 py-2" onclick="select({{$combustivel->id}}, {{$combustivel->preco}});">
                                                         <div class="card-body">
-                                                            Gasolina Comum
-                                                        </div>
-                                                    </div>
-                                   
-                                                </div>
-                                                <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div class="card border-left-danger shadow h-100 py-2" onclick="select(2)" id="card2">
-                                                        <div class="card-body">
-                                                            Diesel S10
+                                                            {{$combustivel->combustivel}} - R$ {{$combustivel->preco}}
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endforeach
                                                 
-                                            </form>
+                            
                                         </div>
                                         <div class="card-body">
-                                        <label for="numpadButton">Digite a quantidade (L):</label>
-                                            <form>
+                                        <label for="numpadButton">Digite a quantidade (Litros):</label>
+                                          
                                                 <div class="input-group">
-                                                    <input type="number" id="quantidade" class="form-control" placeholder="Digite quantidade" aria-describedby="numpadButton-btn" min="0" name="quantidade">
+                                                    <input type="number" id="quantidade" class="form-control" placeholder="Digite quantidade:" aria-describedby="numpadButton-btn" min="0" step="0.01" name="quantidade" value="1" onkeyup="atualizaQtd({{$combustivel->id}}, {{$combustivel->preco}});">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default" id="numpadButton-btn" type="button"><i class="glyphicon glyphicon-th"></i></button>
                                                     </span>
                                                 </div>
-                                            </form>
+                                           
                                         </div>
                                         <div class="card-body">
                                         <label for="numpadButton">Digite o valor (R$):</label>
-                                            <form>
+                                         
                                                 <div class="input-group">
-                                                    <input type="number" id="preco" class="form-control" placeholder="Digite o preço" aria-describedby="numpadButton-btn2" min="0" name="preco">
+                                                    <input type="number" id="valor" class="form-control" placeholder="Digite o valor:" aria-describedby="numpadButton-btn2" step="0.01" min="0" name="valor" onkeyup="atualizaValor({{$combustivel->id}}, {{$combustivel->preco}});">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default" id="numpadButton-btn2" type="button"><i class="glyphicon glyphicon-th"></i></button>
                                                     </span>
                                                 </div>
+                                                <div class="row justify-content-center">
+				                                    <div class="form-group">
+				                                      <input type="submit" value="Finalizar" class="btn btn-secondary">
+				                                    </div>
+				                                </div>
                                             </form>
                                         </div>
-                                        <div class="card-body">
-                                            <a class="btn btn-secondary" href="./indexcombustivel.html" role="button">Finalizar</a>
-                                        </div>
+                                        
+
                                     </div>
 
                                 </div>
@@ -175,11 +180,12 @@
     </div>
 
     <script type="text/javascript">
-    	function select(id){
-    		if (document.getElementById('combustivel').value == id){
-    			document.getElementById('combustivel').value = 0;
-    			document.getElementById('card'+id).classList.remove('bg-danger');
-    		}else{
+    	document.getElementById('card'+{{$combustivel->id}}).classList.add('bg-danger');
+    	document.getElementById('valor').value = {{$combustivel->preco}};
+    	document.getElementById('combustivel').value = {{$combustivel->id}};
+
+    	function select(id, preco){
+    		if (document.getElementById('combustivel').value != id){
     			if (document.getElementById('combustivel').value!=0) {
     				document.getElementById('card'+document.getElementById('combustivel').value).classList.remove('bg-danger');
     				document.getElementById('combustivel').value = 0;
@@ -187,7 +193,18 @@
     			}
     			document.getElementById('combustivel').value = id;
     			document.getElementById('card'+id).classList.add('bg-danger');
+    			document.getElementById('valor').value = preco;
     		} 
+    	}
+
+    	function atualizaQtd(id, preco){
+    		var qtd = document.getElementById('quantidade').value;
+    		document.getElementById('valor').value = qtd*preco;
+    	}
+
+    	function atualizaValor(id, preco){
+    		var valor = document.getElementById('valor').value;
+    		document.getElementById('quantidade').value = valor/preco;
     	}
     </script>
 
