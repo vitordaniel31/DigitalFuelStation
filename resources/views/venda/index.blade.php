@@ -85,7 +85,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Abasteça seu veículo</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Abasteça seu veículo - Bomba {{Auth::guard('bomba')->user()->codigo}}</h1>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
@@ -97,6 +97,21 @@
                                   </div>
                                 @endif
                             @endforeach
+                            @error('valor')
+		                        <div class="alert alert-danger" role="alert">
+		                            {{ $message }}
+		                        </div>
+		                    @enderror
+		                    @error('quantidade')
+		                        <div class="alert alert-danger" role="alert">
+		                            {{ $message }}
+		                        </div>
+		                    @enderror
+		                    @error('id_combustivel')
+		                        <div class="alert alert-danger" role="alert">
+		                            {{ $message }}
+		                        </div>
+		                    @enderror
                             <!-- Page Heading -->
                             <div class="row">
                                 <!-- Area Chart -->
@@ -138,6 +153,7 @@
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-default" id="numpadButton-btn2" type="button"><i class="glyphicon glyphicon-th"></i></button>
                                                     </span>
+                                                    
                                                 </div>
                                                 <div class="row justify-content-center">
 				                                    <div class="form-group">

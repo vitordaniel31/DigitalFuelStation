@@ -54,18 +54,20 @@ class VendaController extends Controller
                 'quantidade' => 'required|numeric|between:0.01,'.$qtd_restante,
             ]);
             $combustivel_bomba = CombustivelBomba::where('id_bomba', $id_bomba)->where('id_combustivel', $id_combustivel)->first();
+            if ($combustivel_bomba->status==1) {
+                return redirect(route('venda.index'))->with('alert-danger', 'A bomba está em uso! Agurarde um instante!');
+            }
             $valor = $request->quantidade * $preco;
             $venda = Venda::create([
-                'id_combustivel_bomba' => $combustivel_bomba,
+                'id_combustivel_bomba' => $combustivel_bomba->id,
                 'litros_comprados' => $request->quantidade,
                 'valor' => $valor,
             ]);
             $combustivel_bomba->update([
-                'status' => 1,      
+                'status' => 1,        
             ]);
-
+            return redirect(route('venda.index'))->with('alert-success', 'Compra realizada com sucesso! Realize o abastecimento!');
         }
-        return redirect(route('venda.index'))->with('alert-success', 'Compra realizada com sucesso! Realize o abastecimento!');
     }
 
     /**

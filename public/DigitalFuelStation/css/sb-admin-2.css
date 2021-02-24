@@ -10824,7 +10824,7 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("{{asset('DigitalFuelStation/imglogin.png')}}");
+  background: url("../imglogin.png");
   background-position: center;
   background-size: cover;
 }
@@ -10836,7 +10836,7 @@ a:focus {
 }
 
 .bg-password-image {
-  background: url("{{asset('DigitalFuelStation/imglogin.png')}}");
+  background: url("../imglogin.png");
   background-position: center;
   background-size: cover;
 }
