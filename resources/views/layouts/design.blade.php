@@ -111,10 +111,10 @@
                         <li class="nav-item dropdown no-arrow">
                             @if(Auth::check())
                              <li class="nav-item active">
-                                <form action="{{route('logout')}}" id="logout" method="POST">
+                                <form action="{{route('logout')}}" id="logout1" method="POST">
                                   @csrf
                                   <a class="nav-link" role="button"
-                                aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('logout').submit();"><span class="mr-2 d-none d-lg-inline text-gray-600 small">Sair</span>
+                                aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('logout1').submit();"><span class="mr-2 d-none d-lg-inline text-gray-600 small">Sair</span>
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i></a>
                                 </form>
                             </li>
