@@ -65,7 +65,7 @@
                                             <th>Data/Hora</th>
                                             <th>Combustível</th>
                                             <th>Bomba</th>
-                                            <th>Quantidade (L)</th>
+                                            <th>Quantidade (Litros)</th>
                                             <th>Valor</th>
                                         </tr>
                                     </thead>
@@ -74,26 +74,20 @@
                                             <th>Data/Hora</th>
                                             <th>Combustível</th>
                                             <th>Bomba</th>
-                                            <th>Quantidade (L)</th>
+                                            <th>Quantidade (Litros)</th>
                                             <th>Valor (R$)</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
+                                        @foreach ($vendas as $venda)
                                         <tr>
-                                            <td>18/02/2021 22:09:10</td>
-                                            <td>Gasolina Aditivada</td>
-                                            <td>01</td>
-                                            <td>10 Litros</td>
-                                            <td>R$ 50,00</td>
+                                            <td>{{date('H:i:s Y/m/d', strtotime($venda->created_at))}}</td>
+                                            <td>{{$venda->combustivel}}</td>
+                                            <td>{{$venda->codigo}}</td>
+                                            <td>{{$venda->litros_comprados}} Litros</td>
+                                            <td>R$ {{$venda->valor}}</td>
                                         </tr>
-                                        <tr>
-                                            <td>19/02/2021 22:09:10</td>
-                                            <td>Gasolina Comum</td>
-                                            <td>01</td>
-                                            <td>10 Litros</td>
-                                            <td>R$ 49,00</td>
-                                        </tr>
-                                    
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

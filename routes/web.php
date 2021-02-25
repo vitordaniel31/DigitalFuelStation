@@ -5,6 +5,7 @@ use App\Http\Controllers\BombaController;
 use App\Http\Controllers\CombustivelController;
 use App\Http\Controllers\VendaController;
 use App\Models\Combustivel;
+use App\Models\Venda;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,11 @@ use App\Models\Combustivel;
 
 Route::get('/', function () {
     $combustiveis = Combustivel::withTrashed()->get();
-    return view('index')->with('combustiveis', $combustiveis);
+    $vendas =  Venda::join('combustiveis_bombas', 'id_combustivel_bomba', '=', 'combustiveis_bombas.id')
+    		->join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')
+    		->join('bombas', 'id_bomba', '=', 'bombas.id')
+    		->get();    
+    return view('index')->with('combustiveis', $combustiveis)->with('vendas', $vendas);
 })->middleware('auth')->name('home');
 
 Route::get('/dashboard', function () {
