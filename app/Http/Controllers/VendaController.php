@@ -51,7 +51,7 @@ class VendaController extends Controller
             $qtd_restante = $combustivel->qtd_restante;
             $preco = $combustivel->preco;
             $request->validate([
-                'quantidade' => 'required|numeric|between:0.01,'.$qtd_restante,
+                'quantidade' => 'required|numeric|between:0,'.$qtd_restante,
             ]);
             $combustivel_bomba = CombustivelBomba::where('id_bomba', $id_bomba)->where('id_combustivel', $id_combustivel)->first();
             if ($combustivel_bomba->status==1) {

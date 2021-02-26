@@ -37,7 +37,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6  d-lg-block bg-login-image">
-                                <img src="{{asset('DigitalFuelStation/imglogin.png')}}" alt="" width="115%">
+                            
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">

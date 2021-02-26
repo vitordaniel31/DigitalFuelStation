@@ -37,12 +37,12 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                <img src="{{asset('DigitalFuelStation/imglogin.png')}}" alt="" width="115%">
+                                
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bem Vindo</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Digital Fuel Station - Login</h1>
                                     </div>
                                     @foreach (['danger', 'success'] as $msg)
                                         @if(Session::has('alert-' . $msg))

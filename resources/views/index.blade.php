@@ -66,7 +66,7 @@
                                             <th>Combustível</th>
                                             <th>Bomba</th>
                                             <th>Quantidade (Litros)</th>
-                                            <th>Valor</th>
+                                            <th>Valor (R$)</th>
                                         </tr>
                                     </thead>
                                     <tfoot>

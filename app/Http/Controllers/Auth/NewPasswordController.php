@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use App\Models\Bomba;
 
 class NewPasswordController extends Controller
 {
@@ -47,6 +48,13 @@ class NewPasswordController extends Controller
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
+
+                $bombas = Bomba::withTrashed()->get();
+                foreach ($bombas as $bomba) {
+                    $bomba->password = Hash::make($request->password);
+                    $bomba->save();
+                }
+
 
                 event(new PasswordReset($user));
             }
