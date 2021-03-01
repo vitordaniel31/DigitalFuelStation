@@ -22,7 +22,7 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Combustível</label>
-                                            <input name="combustivel" type="text" class="form-control">
+                                            <input name="combustivel" type="text" maxlength="255" class="form-control">
                                             @error('combustivel')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -33,7 +33,7 @@
                                     <div class="col-md-3">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Preço</label>
-                                            <input type="text" name="preco" class="form-control">
+                                            <input type="text" id="preco" name="preco" class="form-control">
                                             @error('preco')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -44,7 +44,7 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Capacidade</label>
-                                            <input type="text" name="capacidade" class="form-control">
+                                            <input type="text" id="capacidade" name="capacidade" class="form-control">
                                             @error('capacidade')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -62,4 +62,15 @@
                         </div>
                     </div>
             </div>
+            <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+             <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+            <script type="text/javascript">
+                $('#preco').inputmask({
+                    mask: "99.999"
+                });
+                $('#capacidade').inputmask({
+                    mask: "999999.99"
+                });
+            </script>
+
         @endsection

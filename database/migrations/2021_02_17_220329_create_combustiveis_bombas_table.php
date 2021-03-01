@@ -21,6 +21,7 @@ class CreateCombustiveisBombasTable extends Migration
             $table->foreign('id_combustivel')->references('id')->on('combustiveis');
             $table->boolean('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

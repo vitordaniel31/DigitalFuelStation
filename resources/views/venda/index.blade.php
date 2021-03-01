@@ -197,7 +197,7 @@
                                     <div class="col-md-3">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Quantidade (Litros)</label>
-                                            <input type="text" id="quantidade" name="quantidade" class="form-control">
+                                            <input type="text" id="quantidade" value="1" name="quantidade" class="form-control">
                                             @error('quantidade')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}

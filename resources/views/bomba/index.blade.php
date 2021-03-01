@@ -22,6 +22,7 @@
                                         <tr>
                                             <th>Código</th>
                                             <th>Combustíveis</th>
+                                            <th>Status</th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -29,6 +30,7 @@
                                         <tr>
                                             <th>Código</th>
                                             <th>Combustíveis</th>
+                                            <th>Status</th>
                                             <th>Opções</th>
                                         </tr>
                                     </tfoot>
@@ -42,7 +44,22 @@
                                                 @endif
                                             @endforeach
                                             </td>
-                                            <td><button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.edit', [$bomba->id])}}'">Editar</i></button></td>
+                                            <td>@if($bomba->trashed())Inativa @else Ativa @endif</td>
+                                            <td>@if(!$bomba->trashed())
+                                                <button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.edit', [$bomba->id])}}'">Editar</i></button>
+                                             <form action="{{route('bomba.destroy', [$bomba->id])}}" method="POST" style="display: inline;">
+                                                      @csrf
+                                                      @method('DELETE')
+                                                      <button title="Desativar" class="btn btn-secondary " type="submit" name="action">Desativar</button>
+                                                  </form>
+                                                @else
+                                                    <form action="{{route('bomba.restore', [$bomba->id])}}" method="POST" style="display: inline;">
+                                                      @csrf
+                                                      @method('PUT')
+                                                      <button title="Ativar" class="btn btn-secondary" type="submit" name="action">Ativar</button>
+                                                  </form>
+                                                @endif
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

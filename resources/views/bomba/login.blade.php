@@ -54,7 +54,7 @@
                                     <form class="user" id="login" method="POST" action="{{route('bomba.storeLogin')}}">
                                         @csrf
                                         <div class="form-group">
-                                            <input type="integer" class="form-control form-control-user"
+                                            <input min="1" max="99" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="Insira o código da bomba:" name="codigo">
                                             @error('codigo')

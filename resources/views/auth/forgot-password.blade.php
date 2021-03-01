@@ -65,6 +65,9 @@
                                             Enviar
                                         </a>
                                     </form>
+                                    <div class="text-center ">
+                                        <a class="small text-dark" href="{{route('login')}}">Fazer login?</a>
+                                    </div>
                         
                                 </div>
                             </div>

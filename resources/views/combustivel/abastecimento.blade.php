@@ -48,7 +48,7 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Quantidade (Litros)</label>
-                                            <input name="quantidade" type="text" class="form-control">
+                                            <input name="quantidade" id="quantidade" type="number" min="0" max="{{$combustivel->capacidade-$combustivel->qtd_restante}}" class="form-control">
                                             @error('quantidade')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -64,8 +64,13 @@
                                 </div>
                             </form>
                         </div>
-
-                    
             </div>
+            <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+             <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+            <script type="text/javascript">
+                $('#quantidade').inputmask({
+                    mask: "999999.99"
+                });
+            </script>
        
 @endsection

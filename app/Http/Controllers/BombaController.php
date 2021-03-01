@@ -21,7 +21,7 @@ class BombaController extends Controller
     public function index()
     {
         $bombas = Bomba::withTrashed()->get();
-        $combustiveis = CombustivelBomba::join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->orderBy('combustivel')->get();
+        $combustiveis = CombustivelBomba::withTrashed()->join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->orderBy('combustivel')->get();
         return view('bomba.index')->with('bombas', $bombas)->with('combustiveis', $combustiveis);
     }
 
@@ -123,12 +123,14 @@ class BombaController extends Controller
             ]);
 
             foreach($combustiveis as $key => $combustivel) {
-                $consulta = CombustivelBomba::where('id_bomba', $id)->where('id_combustivel', $combustivel)->first();
+                $consulta = CombustivelBomba::withTrashed()->where('id_bomba', $id)->where('id_combustivel', $combustivel)->first();
                 if (!$consulta) {
                     $combustivelBomba = CombustivelBomba::create([
                         'id_combustivel' => $combustivel,
                         'id_bomba' => $id,
                     ]);
+                }elseif($consulta and $consulta->   trashed()){
+                    $consulta->restore();
                 }
             }
 
@@ -159,6 +161,10 @@ class BombaController extends Controller
     {
         $bomba = Bomba::find($id);
         if ($bomba) {
+            $combustiveisBombas = CombustivelBomba::where('id_bomba', $id)->get();
+            foreach ($combustiveisBombas as $cb) {
+               $cb->delete();
+            }
             $bomba->delete();
             return redirect(route('bomba.index'))->with('alert-success', 'Bomba inativada com sucesso!');
         }else{
@@ -170,6 +176,10 @@ class BombaController extends Controller
     {
         $bomba = Bomba::onlyTrashed()->where('id', $id);
         if ($bomba) {
+            $combustiveisBombas = CombustivelBomba::withTrashed()->where('id_bomba', $id)->get();
+            foreach ($combustiveisBombas as $cb) {
+               $cb->restore();
+            }
             $bomba->restore();
             return redirect(route('bomba.index'))->with('alert-success', 'Bomba ativada com sucesso!');
         }else{

@@ -25,7 +25,7 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Código</label>
-                                            <input value="{{$bomba->codigo}}" name="codigo" type="text" class="form-control">
+                                            <input value="{{$bomba->codigo}}" name="codigo" type="number" min="1" max="99" class="form-control">
                                             @error('codigo')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}

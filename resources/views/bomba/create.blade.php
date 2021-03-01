@@ -24,9 +24,9 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Código</label>
-                                            <input name="codigo" type="text" class="form-control">
+                                            <input name="codigo" type="number" min="1" max="99" class="form-control">
                                             @error('codigo')
-                                                <div class="alert alert-primary" role="alert">
+                                                <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-md-3">
                                          @error('combustiveis')
-                                        <div class="alert alert-primary" role="alert">
+                                        <div class="alert alert-danger" role="alert">
                                             {{ $message }}
                                         </div>
                                         @enderror
@@ -42,7 +42,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-check">
-                                                  <input class="form-check-input" type="checkbox" value="{{$combustivel->id}}" name='combustiveis[]'>
+                                                  <input class="form-check-input" type="checkbox" value="{{$combustivel->id}}" name='combustiveis[]' checked="">
                                                   <label class="form-check-label" >
                                                     {{$combustivel->combustivel}}
                                                   </label>

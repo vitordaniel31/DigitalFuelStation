@@ -31,6 +31,7 @@
                                             <th>Preço</th>
                                             <th>Capacidade</th>
                                             <th>Quantidade restante</th>
+                                            <th>Status</th>
                                             <th>Opções</th>
                                         </tr>
                                     </thead>
@@ -40,6 +41,7 @@
                                             <th>Preço</th>
                                             <th>Capacidade</th>
                                             <th>Quantidade restante</th>
+                                            <th>Status</th>
                                             <th>Opções</th>
                                         </tr>
                                     </tfoot>
@@ -50,8 +52,22 @@
                                             <td>R$ {{$combustivel->preco}}</td>
                                             <td>{{$combustivel->capacidade}} Litros</td>
                                             <td>{{$combustivel->qtd_restante}} Litros</td>
-                                            <td><button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('combustivel.edit', [$combustivel->id])}}'">Editar</i></button>
-                                            <button type="button" class="btn btn-secondary">Deletar</td>
+                                            <td>@if($combustivel->trashed())Inativo @else Ativo @endif</td>
+                                            <td>@if(!$combustivel->trashed())
+                                                <button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('combustivel.edit', [$combustivel->id])}}'">Editar</i></button>
+                                                <form action="{{route('combustivel.destroy', [$combustivel->id])}}" method="POST" style="display: inline;">
+                                                      @csrf
+                                                      @method('DELETE')
+                                                      <button title="Desativar" class="btn btn-secondary " type="submit" name="action">Desativar</button>
+                                                  </form>
+                                                @else
+                                                    <form action="{{route('combustivel.restore', [$combustivel->id])}}" method="POST" style="display: inline;">
+                                                      @csrf
+                                                      @method('PUT')
+                                                      <button title="Ativar" class="btn btn-secondary" type="submit" name="action">Ativar</button>
+                                                  </form>
+
+                                                @endif
                                         </tr>
                                         @endforeach
                                     </tbody>

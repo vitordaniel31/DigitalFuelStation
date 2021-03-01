@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Combustivel;
+use App\Models\CombustivelBomba;
+
 
 class CombustivelController extends Controller
 {
@@ -38,8 +40,8 @@ class CombustivelController extends Controller
     {
         $request->validate([
             'combustivel' => 'required|string|max:255|unique:combustiveis',
-            'preco' => 'required|numeric',
-            'capacidade' => 'required|numeric',
+            'preco' => 'required|regex:/^\d{1,2}(\.\d{1,3})?$/',
+            'capacidade' => 'required|regex:/^\d{1,6}(\.\d{1,3})?$/',
         ]);
 
         $combustivel = Combustivel::create([
@@ -74,7 +76,7 @@ class CombustivelController extends Controller
         if ($combustivel) {
             return view('combustivel.edit')->with('combustivel', $combustivel);
         }else{
-            return redirect(route('combustivel.index'))->with('alert-primary', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir editar!');
+            return redirect(route('combustivel.index'))->with('alert-danger', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir editar!');
         }
     }
 
@@ -87,10 +89,12 @@ class CombustivelController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $combustivel = Combustivel::find($id);
         $request->validate([
             'combustivel' => 'string|max:255|unique:combustiveis,combustivel,' . $id . ',id',
-            'preco' => 'numeric',
-            'capacidade' => 'numeric',
+            'preco' => 'regex:/^\d{1,2}(\.\d{1,3})?$/',
+            'capacidade' => 'regex:/^\d{1,6}(\.\d{1,3})?$/',
+            'quantidade' => 'required|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
         ]);
 
         $combustivel = Combustivel::find($id);
@@ -99,10 +103,11 @@ class CombustivelController extends Controller
                 'combustivel' => $request->combustivel,
                 'preco' => $request->preco,
                 'capacidade' => $request->capacidade,
+                'qtd_restante' =>$request->quantidade,
             ]);
             return redirect(route('combustivel.index'))->with('alert-success', 'Os dados do combustível foram editados com sucesso!');
         }else{
-            return redirect(route('combustivel.index'))->with('alert-primary', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir editar!');
+            return redirect(route('combustivel.index'))->with('alert-danger', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir editar!');
         }
 
     }
@@ -117,10 +122,14 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::find($id);
         if ($combustivel) {
+            $combustiveisBombas = CombustivelBomba::where('id_combustivel', $id)->get();
+            foreach ($combustiveisBombas as $cb) {
+               $cb->delete();
+            }
             $combustivel->delete();
             return redirect(route('combustivel.index'))->with('alert-success', 'Combustível inativado com sucesso!');
         }else{
-            return redirect(route('combustivel.index'))->with('alert-primary', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir excluir!');
+            return redirect(route('combustivel.index'))->with('alert-danger', 'Combustível inativo ou inexistente! Informe um combustível ativo para conseguir excluir!');
         }
     }
 
@@ -128,10 +137,14 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::onlyTrashed()->where('id', $id);
         if ($combustivel) {
+            $combustiveisBombas = CombustivelBomba::withTrashed()->where('id_combustivel', $id)->get();
+            foreach ($combustiveisBombas as $cb) {
+               $cb->restore();
+            }
             $combustivel->restore();
             return redirect(route('combustivel.index'))->with('alert-success', 'Combustível ativado com sucesso!');
         }else{
-            return redirect(route('combustivel.index'))->with('alert-primary', 'Combustível ativo ou inexistente! Informe um combustível inativo para conseguir ativá-lo!');
+            return redirect(route('combustivel.index'))->with('alert-danger', 'Combustível ativo ou inexistente! Informe um combustível inativo para conseguir ativá-lo!');
         }
     }
 
@@ -145,7 +158,7 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::find($id);
         $request->validate([
-            'quantidade' => 'required|integer|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+            'quantidade' => 'required|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
         ]);
         $combustivel->update([
             'qtd_restante' => $combustivel->qtd_restante + $request->quantidade,

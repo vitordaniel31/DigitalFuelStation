@@ -49,20 +49,6 @@
             </li>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-burn"></i>
-                    <span>Combustíveis</span></a>
-
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Combustíveis</h6>
-                        <a class="collapse-item" href="{{route('combustivel.index')}}">Index</a>
-                        <a class="collapse-item" href="{{route('combustivel.create')}}">Novo Combustível</a>
-                    </div>
-                </div>
-            </li>
-            <hr class="sidebar-divider my-0">
-             <li class="nav-item active">
                 <a class="nav-link collapsed" href="index.html" data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-gas-pump"></i>
                     <span>Bombas</span></a>
@@ -72,6 +58,21 @@
                         <h6 class="collapse-header">Bombas</h6>
                         <a class="collapse-item" href="{{route('bomba.index')}}">Index</a>
                         <a class="collapse-item" href="{{route('bomba.create')}}">Nova Bomba</a>
+                    </div>
+                </div>
+            </li>
+            
+            <hr class="sidebar-divider my-0">
+             <li class="nav-item active">
+                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-burn"></i>
+                    <span>Combustíveis</span></a>
+
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Combustíveis</h6>
+                        <a class="collapse-item" href="{{route('combustivel.index')}}">Index</a>
+                        <a class="collapse-item" href="{{route('combustivel.create')}}">Novo Combustível</a>
                     </div>
                 </div>
             </li>

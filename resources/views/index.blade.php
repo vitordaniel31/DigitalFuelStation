@@ -12,7 +12,7 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         @foreach ($combustiveis as $combustivel)
-                        <div class="col-xl-4 col-md-6 mb-4 " onclick="window.location.href='{{route('combustivel.abastecer', [$combustivel->id])}}'">
+                        <div title="Clique para abastecer o tanque!" class="col-xl-4 col-md-6 mb-4 " onclick="window.location.href='{{route('combustivel.abastecer', [$combustivel->id])}}'">
                             <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -81,7 +81,7 @@
                                     <tbody>
                                         @foreach ($vendas as $venda)
                                         <tr>
-                                            <td>{{date('H:i:s Y/m/d', strtotime($venda->created_at))}}</td>
+                                            <td>{{date('H:i:s d/m/Y', strtotime($venda->created_at))}}</td>
                                             <td>{{$venda->combustivel}}</td>
                                             <td>{{$venda->codigo}}</td>
                                             <td>{{$venda->litros_comprados}} Litros</td>

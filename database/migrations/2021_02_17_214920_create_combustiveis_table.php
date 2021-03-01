@@ -16,7 +16,7 @@ class CreateCombustiveisTable extends Migration
         Schema::create('combustiveis', function (Blueprint $table) {
             $table->id();
             $table->string('combustivel')->unique();
-            $table->decimal('preco', 4, 2);
+            $table->decimal('preco', 5, 3);
             $table->decimal('capacidade', 8, 2);
             $table->decimal('qtd_restante', 8, 2);
             $table->timestamps();
