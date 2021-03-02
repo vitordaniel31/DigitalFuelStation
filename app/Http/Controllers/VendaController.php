@@ -50,7 +50,7 @@ class VendaController extends Controller
             $combustivel = Combustivel::find($id_combustivel);
             $preco = $combustivel->preco;
             $request->validate([
-                'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0.01|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+                'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,3})?$/|min:0.01|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
             ]);
             $combustivel_bomba = CombustivelBomba::where('id_bomba', $id_bomba)->where('id_combustivel', $id_combustivel)->first();
             if ($combustivel_bomba->status==1) {
