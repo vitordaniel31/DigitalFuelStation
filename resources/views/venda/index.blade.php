@@ -126,11 +126,9 @@
                                                             <div class="card-body">
                                                                 <div class="row no-gutters align-items-center">
                                                                     <div class="col mr-2">
-                                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{$combustivel->combustivel}}
-                                                                        </div>
                                                                         <div class="row no-gutters align-items-center">
                                                                             <div class="col-auto">
-                                                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%</div>
+                                                                                <div class="h5 mb-0 mr-3 font-weight-bold text-danger">{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%</div>
                                                                             </div>
                                                                             <div class="col">
                                                                                 <div class="progress progress-sm mr-2">
@@ -140,12 +138,12 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <small>{{intval($combustivel->qtd_restante)}}/{{intval($combustivel->capacidade)}} litros</small>
+                                                                        <small class="text-danger">{{intval($combustivel->qtd_restante)}}/{{intval($combustivel->capacidade)}} litros</small>
                                                                     </div>
                                                                     <div class="col-auto">
                                                                         <i class="fas fa-gas-pump fa-2x text-gray-300"></i>
                                                                     </div>
-                                                                     <h3>{{$combustivel->combustivel}} - R$ {{$combustivel->preco}}</h3>
+                                                                     <h3 class="text-danger">{{$combustivel->combustivel}} - R$ {{str_replace(".", ",", $combustivel->preco)}}</h3>
                                                                 </div>
                                                             </div>
                                                         </div>
