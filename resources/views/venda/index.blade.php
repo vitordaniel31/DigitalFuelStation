@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="form-group">
-                                      <input type="submit" value="Adicionar" class="btn btn-secondary">
+                                      <input type="submit" value="Comprar" class="btn btn-secondary">
                                     </div>
                                 </div>
                             </form>
