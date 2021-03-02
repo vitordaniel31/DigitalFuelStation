@@ -72,6 +72,9 @@
                                     <div class="text-center ">
                                         <a class="small text-dark" href="{{route('password.request')}}">Esqueceu sua senha?</a>
                                     </div>
+                                    <div class="text-center ">
+                                        <a class="small text-dark" href="{{route('bomba.createLogin')}}">Logar uma bomba</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

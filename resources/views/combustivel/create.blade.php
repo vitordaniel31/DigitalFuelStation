@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="col-md-3">
                                          <div class="form-group">
-                                            <label class="bmd-label-floating">Preço</label>
+                                            <label class="bmd-label-floating">Preço (R$)</label>
                                             <input type="text" id="preco" name="preco" class="form-control">
                                             @error('preco')
                                                 <div class="alert alert-primary" role="alert">
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="col-md-5">
                                          <div class="form-group">
-                                            <label class="bmd-label-floating">Capacidade</label>
+                                            <label class="bmd-label-floating">Capacidade do tanque (Litros)</label>
                                             <input type="text" id="capacidade" name="capacidade" class="form-control">
                                             @error('capacidade')
                                                 <div class="alert alert-primary" role="alert">
@@ -66,10 +66,10 @@
              <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
             <script type="text/javascript">
                 $('#preco').inputmask({
-                    mask: "99.999"
+                    mask: "9{1,2}.9{1,3}"
                 });
                 $('#capacidade').inputmask({
-                    mask: "999999.99"
+                    mask: "9{1,6}.9{0,2}"
                 });
             </script>
 

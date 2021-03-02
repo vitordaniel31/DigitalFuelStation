@@ -56,7 +56,7 @@
                                     <div class="col-md-5">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Quantidade restante</label>
-                                            <input value="{{$combustivel->qtd_restante}}" id="quantidade" type="number" name="quantidade" class="form-control">
+                                            <input value="{{$combustivel->qtd_restante}}" id="quantidade" type="texts" name="quantidade" class="form-control" >
                                             @error('quantidade')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -78,13 +78,14 @@
              <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
             <script type="text/javascript">
                 $('#preco').inputmask({
-                    mask: "99.999"
+                    mask: "9{1,2}.9{1,3}"
                 });
                 $('#capacidade').inputmask({
-                    mask: "999999.99"
+                    mask: "9{1,6}.9{0,2}"
                 });
-                $('#quantidade').inputmask({
-                    mask: "999999.99"
+                $('#quantidade').inputmask('decimal', {
+                   mask: "9{1,6}.9{0,2}",
+                   max: {{$combustivel->capacidade-$combustivel->qtd_restante}}
                 });
             </script>
         @endsection
