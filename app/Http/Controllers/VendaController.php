@@ -67,6 +67,9 @@ class VendaController extends Controller
             ]);
             $combustivel->qtd_restante -= $request->quantidade;
             $combustivel->save();
+            $combustivel_bomba->update([
+                'status' => 0,        
+            ]);
             return redirect(route('venda.index'))->with('alert-success', 'Compra realizada com sucesso! Realize o abastecimento!');
         }
     }
