@@ -17,7 +17,8 @@ class VendaController extends Controller
      */
     public function index()
     {
-        $combustiveis = Combustivel::where('qtd_restante', '>', 0)->get();
+        $id_bomba = \Auth::guard('bomba')->user()->id;
+        $combustiveis = CombustivelBomba::join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->where('id_bomba', $id_bomba)where('qtd_restante', '>', 0)->get();
         return view('venda.index')->with('combustiveis', $combustiveis);
     }
 
