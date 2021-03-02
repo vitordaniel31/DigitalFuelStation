@@ -23,55 +23,6 @@
     <!-- Custom styles for this page -->
     <link href="{{asset('DigitalFuelStation/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <!-- jQuery.NumPad -->
-    <script src="{{asset('DigitalFuelStation/jquery.numpad.js')}}"></script>
-    <link rel="stylesheet" href="{{('DigitalFuelStation/jquery.numpad.css')}}">
-    <script type="text/javascript">
-            // Set NumPad defaults for jQuery mobile. 
-            // These defaults will be applied to all NumPads within this document!
-        $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
-        $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
-        $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
-        $.fn.numpad.defaults.buttonNumberTpl =  '<button type="button" class="btn btn-default"></button>';
-        $.fn.numpad.defaults.buttonFunctionTpl = '<button type="button" class="btn" style="width: 100%;"></button>';
-        $.fn.numpad.defaults.onKeypadCreate = function(){$(this).find('.done').addClass('btn-primary');};
-            
-            // Instantiate NumPad once the page is ready to be shown
-        $(document).ready(function(){
-            $('#numpadButton-btn').numpad({
-                target: $('#quantidade')
-            });
-            $('#numpadButton-btn2').numpad({
-                target: $('#preco')
-            });
-        });
-    </script>
-    <style type="text/css">
-        .nmpd-grid {border: none; padding: 20px;}
-        .nmpd-grid>tbody>tr>td {border: none;}
-            
-        /* Some custom styling for Bootstrap */
-        .qtyInput {display: block;
-             width: 100%;
-             padding: 6px 12px;
-             color: #555;
-             background-color: white;
-             border: 1px solid #ccc;
-             border-radius: 4px;
-             -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-             box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-             -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-             -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-             transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-        }
-    </style>
-
 </head>
 
 <body id="page-top">
@@ -167,15 +118,41 @@
                                         <label class="bmd-label-floating">Combustível</label>
                                          <div class="form-group">
                                             <input type="hidden" id="combustivel" name="id_combustivel" value="0">
+                                            <div class="row">
                                             @foreach ($combustiveis as $combustivel)
                                                 <div class="col-xl-4 col-md-6 mb-4">
-                                                    <div id="card{{$combustivel->id}}" class="card border-left-danger shadow h-100 py-2" onclick="select({{$combustivel->id}}, {{$combustivel->preco}});">
-                                                        <div class="card-body">
-                                                            {{$combustivel->combustivel}} - R$ {{$combustivel->preco}}
+                                                  
+                                                        <div id="card{{$combustivel->id}}" onclick="select({{$combustivel->id}}, {{$combustivel->preco}}, {{$combustivel->qtd_restante}});" class="card border-left-danger shadow h-100 py-2">
+                                                            <div class="card-body">
+                                                                <div class="row no-gutters align-items-center">
+                                                                    <div class="col mr-2">
+                                                                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{$combustivel->combustivel}}
+                                                                        </div>
+                                                                        <div class="row no-gutters align-items-center">
+                                                                            <div class="col-auto">
+                                                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%</div>
+                                                                            </div>
+                                                                            <div class="col">
+                                                                                <div class="progress progress-sm mr-2">
+                                                                                    <div class="progress-bar bg-danger" role="progressbar"
+                                                                                        style="width: {{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%" aria-valuenow="{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}" aria-valuemin="0"
+                                                                                        aria-valuemax="100"></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <small>{{intval($combustivel->qtd_restante)}}/{{intval($combustivel->capacidade)}} litros</small>
+                                                                    </div>
+                                                                    <div class="col-auto">
+                                                                        <i class="fas fa-gas-pump fa-2x text-gray-300"></i>
+                                                                    </div>
+                                                                     <h3>{{$combustivel->combustivel}} - R$ {{$combustivel->preco}}</h3>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                               
                                             @endforeach
+                                            </div>
                                             @error('combustivel')
                                                 <div class="alert alert-primary" role="alert">
                                                     {{ $message }}
@@ -185,8 +162,8 @@
                                     </div>
                                     <div class="col-md-3">
                                          <div class="form-group">
-                                            <label class="bmd-label-floating">Valor</label>
-                                            <input type="text" id="valor" name="valor" class="form-control">
+                                            <label class="bmd-label-floating">Valor (R$)</label>
+                                            <input onkeyup="atualizaValor()" type="text" id="valor" name="valor" class="form-control">
                                             @error('valor')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
@@ -197,7 +174,7 @@
                                     <div class="col-md-3">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Quantidade (Litros)</label>
-                                            <input type="text" id="quantidade" value="1" name="quantidade" class="form-control">
+                                            <input onkeyup="atualizaQtd()" type="text" id="quantidade" value="1" name="quantidade" class="form-control">
                                             @error('quantidade')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
@@ -224,7 +201,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Digital Fuel Station 2021</span>
                     </div>
                 </div>
             </footer>
@@ -241,32 +218,54 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <script type="text/javascript">
-        document.getElementById('card'+{{$combustivel->id}}).classList.add('bg-danger');
-        document.getElementById('valor').value = {{$combustivel->preco}};
-        document.getElementById('combustivel').value = {{$combustivel->id}};
+    <script src="https://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+   
 
-        function select(id, preco){
+    <script type="text/javascript">
+        document.getElementById('card'+{{$combustivel->id}}).classList.add('bg-dark');
+        document.getElementById('valor').value = {{$combustivel->preco}}.toFixed(2);
+        document.getElementById('combustivel').value = {{$combustivel->id}};
+        var precocombustivel = {{$combustivel->preco}};
+        $('#quantidade').inputmask({max: {{$combustivel->qtd_restante}}});
+        $('#valor').inputmask({max: ({{$combustivel->qtd_restante}}/precocombustivel).toFixed(2)});
+        $('#quantidade').inputmask('decimal', {
+            mask: "9{1,6}.9{0,2}",
+            min: 0.01
+        });
+        $('#valor').inputmask({
+            mask: "9{1,6}.9{0,2}",
+            min: 0.01,
+        });
+
+        function select(id, preco, restante){
             if (document.getElementById('combustivel').value != id){
                 if (document.getElementById('combustivel').value!=0) {
-                    document.getElementById('card'+document.getElementById('combustivel').value).classList.remove('bg-danger');
+                    document.getElementById('card'+document.getElementById('combustivel').value).classList.remove('bg-dark');
                     document.getElementById('combustivel').value = 0;
 
                 }
+                document.getElementById('quantidade').max
                 document.getElementById('combustivel').value = id;
-                document.getElementById('card'+id).classList.add('bg-danger');
-                document.getElementById('valor').value = preco;
+                document.getElementById('card'+id).classList.add('bg-dark');
+                var valor = preco*document.getElementById('quantidade').value;
+                document.getElementById('valor').value = valor.toFixed(2); 
+                precocombustivel = preco;
+                $('#quantidade').inputmask('decimal', {max: restante});
+                $('#valor').inputmask('decimal', {max: (restante/preco).toFixed(2)});
             } 
         }
 
-        function atualizaQtd(id, preco){
+        function atualizaQtd(){
             var qtd = document.getElementById('quantidade').value;
-            document.getElementById('valor').value = qtd*preco;
+            var valor = qtd*precocombustivel;
+            document.getElementById('valor').value = valor.toFixed(2);
         }
 
-        function atualizaValor(id, preco){
+        function atualizaValor(){
             var valor = document.getElementById('valor').value;
-            document.getElementById('quantidade').value = valor/preco;
+            var quantidade = valor/precocombustivel;
+            document.getElementById('quantidade').value = quantidade.toFixed(2); 
         }
     </script>
 

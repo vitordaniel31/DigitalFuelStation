@@ -17,7 +17,9 @@ class CreateBombasTable extends Migration
             $table->id();
             $table->integer('codigo')->unique();
             $table->string('password');
+            $table->boolean('active')->default(0);
             $table->timestamps();
+            $table->rememberToken();
             $table->softDeletes();
         });
     }

@@ -36,9 +36,7 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image">
-                                
-                            </div>
+                            <div class="col-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
@@ -54,9 +52,13 @@
                                     <form class="user" id="login" method="POST" action="{{route('bomba.storeLogin')}}">
                                         @csrf
                                         <div class="form-group">
-                                            <input min="1" max="99" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Insira o código da bomba:" name="codigo">
+                                            <label for="bomba">Bomba:</label>
+                                          <select name="codigo" class="form-control browser-default custom-select" id="bomba" required>
+                                            @foreach ($bombas as $bomba)
+                                            <option value="{{$bomba->codigo}}">Bomba {{$bomba->codigo}}</option>
+                                            @endforeach
+                                            
+                                          </select>
                                             @error('codigo')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
@@ -65,7 +67,7 @@
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Senha:" name="password">
+                                                id="exampleInputPassword" placeholder="Senha do administrador:" name="password">
                                             @error('password')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}

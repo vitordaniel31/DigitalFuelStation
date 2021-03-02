@@ -188,14 +188,25 @@ class BombaController extends Controller
     }
 
     public function createLogin(){
-        return view('bomba.login');
+        $bombas = Bomba::all();
+        return view('bomba.login')->with('bombas', $bombas);
     }
 
     public function storeLogin(Request $request){
         $credentials = $request->only('codigo', 'password');
 
-        if (Auth::guard('bomba')->attempt($credentials)) {
-            // Authentication passed...
+        if (Auth::guard('bomba')->attempt($credentials, true)) {
+            $bomba = Bomba::find(Auth::guard('bomba')->user()->id);
+            if ($bomba->active==1) {
+                Auth::guard('bomba')->logout(); 
+                $request->session()->invalidate();
+
+                $request->session()->regenerateToken();
+                return redirect(route('bomba.createLogin'))->with('alert-danger', 'Bomba já utilizada em outro login!');
+            }else{
+                $bomba->active = 1;
+                $bomba->save();
+            }
             return redirect(route('venda.index'));
         }else{
             return redirect(route('bomba.createLogin'))->with('alert-danger', 'Dados incorretos!');
@@ -203,6 +214,9 @@ class BombaController extends Controller
     }
 
     public function destroyLogin(Request $request){
+        $bomba = Bomba::find(Auth::guard('bomba')->user()->id);
+        $bomba->active = 0;
+        $bomba->save();
         Auth::guard('bomba')->logout();
 
         $request->session()->invalidate();

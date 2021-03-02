@@ -17,7 +17,7 @@ class VendaController extends Controller
      */
     public function index()
     {
-        $combustiveis = Combustivel::all();
+        $combustiveis = Combustivel::where('qtd_restante', '>', 0)->get();
         return view('venda.index')->with('combustiveis', $combustiveis);
     }
 
@@ -48,10 +48,9 @@ class VendaController extends Controller
             ]);
             $id_combustivel = $request->id_combustivel;
             $combustivel = Combustivel::find($id_combustivel);
-            $qtd_restante = $combustivel->qtd_restante;
             $preco = $combustivel->preco;
             $request->validate([
-                'quantidade' => 'required|numeric|between:0,'.$qtd_restante,
+                'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0.01|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
             ]);
             $combustivel_bomba = CombustivelBomba::where('id_bomba', $id_bomba)->where('id_combustivel', $id_combustivel)->first();
             if ($combustivel_bomba->status==1) {
@@ -66,6 +65,8 @@ class VendaController extends Controller
             $combustivel_bomba->update([
                 'status' => 1,        
             ]);
+            $combustivel->qtd_restante -= $request->quantidade;
+            $combustivel->save();
             return redirect(route('venda.index'))->with('alert-success', 'Compra realizada com sucesso! Realize o abastecimento!');
         }
     }

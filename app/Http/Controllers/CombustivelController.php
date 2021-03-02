@@ -158,7 +158,7 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::find($id);
         $request->validate([
-            'quantidade' => 'required|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+            'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{1,3})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
         ]);
         $combustivel->update([
             'qtd_restante' => $combustivel->qtd_restante + $request->quantidade,
