@@ -94,7 +94,7 @@ class CombustivelController extends Controller
             'combustivel' => 'string|max:255|unique:combustiveis,combustivel,' . $id . ',id',
             'preco' => 'regex:/^\d{1,2}(\.\d{1,3})?$/',
             'capacidade' => 'regex:/^\d{1,6}(\.\d{0,2})?$/',
-            'quantidade' => 'required|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+            'quantidade' => 'required|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0|max:' . $combustivel->capacidade,
         ]);
 
         $combustivel = Combustivel::find($id);
@@ -158,7 +158,7 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::find($id);
         $request->validate([
-            'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0|max:' . $combustivel->capacidade-$combustivel->qtd_restante,
+            'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0|max:' . $combustivel->capacidade - $combustivel->qtd_restante,
         ]);
         $combustivel->update([
             'qtd_restante' => $combustivel->qtd_restante + $request->quantidade,
