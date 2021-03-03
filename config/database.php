@@ -3,8 +3,7 @@
 use Illuminate\Support\Str;
 
 $mysql="local_mysql";
-$env = env('APP_ENV', 'local');
-if ($env!='local') {
+if (getenv('APP_ENV')!='local') {
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
     $host = $url["host"];
