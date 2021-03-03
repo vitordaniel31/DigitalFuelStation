@@ -10,6 +10,7 @@
  <a href="#-sobre-o-projeto">Sobre</a> •
  <a href="#-funcionalidades">Funcionalidades</a> •
  <a href="#-layout">Layout</a> • 
+ <a href="#-como-executar-o-projeto">Como executar</a> • 
  <a href="#-tecnologias">Tecnologias</a> • 
  <a href="#-contribuidores">Contribuidores</a> • 
  <a href="#-autor">Autor</a> • 
@@ -69,7 +70,7 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [Xampp](https://www.apachefriends.org/pt_br/index.html). 
 Além disto é bom ter um editor para trabalhar com o código como [Sublime Text](https://www.sublimetext.com/)
 
-#### 🎲 Rodando o Backend (servidor)
+#### 🎲 Rodando o projeto
 
 ```bash
 
