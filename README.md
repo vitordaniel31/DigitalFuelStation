@@ -133,5 +133,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 ## 📝 Licença
 
-Este projeto esta sobe a licença [MIT](LICENSE).
+Este projeto esta sobe a licença [MIT](https://github.com/vitordaniel31/DigitalFuelStation/blob/main/LICENCE).
 
