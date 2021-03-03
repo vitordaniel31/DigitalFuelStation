@@ -21,7 +21,7 @@ class BombaController extends Controller
     public function index()
     {
         $bombas = Bomba::withTrashed()->get();
-        $combustiveis = CombustivelBomba::withTrashed()->join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->orderBy('combustivel')->get();
+        $combustiveis = CombustivelBomba::join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')->orderBy('combustivel')->whereNull('combustiveis.deleted_at')->get();
         return view('bomba.index')->with('bombas', $bombas)->with('combustiveis', $combustiveis);
     }
 
@@ -188,7 +188,7 @@ class BombaController extends Controller
     }
 
     public function createLogin(){
-        $bombas = Bomba::all();
+        $bombas = Bomba::join('combustiveis_bombas', 'id_bomba', '=', 'bombas.id')->whereNull('combustiveis_bombas.deleted_at')->get();
         return view('bomba.login')->with('bombas', $bombas);
     }
 
@@ -197,6 +197,13 @@ class BombaController extends Controller
 
         if (Auth::guard('bomba')->attempt($credentials, true)) {
             $bomba = Bomba::find(Auth::guard('bomba')->user()->id);
+            $bomba_teste = Bomba::join('combustiveis_bombas', 'id_bomba', '=', 'bombas.id')->where('bombas.id', Auth::guard('bomba')->user()->id)->whereNull('combustiveis_bombas.deleted_at')->first(); //verifica se bomba tem combustivel ativo
+            if (!$bomba_teste) {
+                Auth::guard('bomba')->logout(); 
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect(route('bomba.createLogin'))->with('alert-danger', 'Bomba não possui nenhum tipo de combustível ativo!');
+            }
             if ($bomba->active==1) {
                 Auth::guard('bomba')->logout(); 
                 $request->session()->invalidate();

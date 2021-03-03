@@ -66,7 +66,7 @@
              <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
             <script type="text/javascript">
                 $('#preco').inputmask({
-                    mask: "9{1,2}.9{1,3}"
+                    mask: "9{1,2}.9{0,3}"
                 });
                 $('#capacidade').inputmask({
                     mask: "9{1,6}.9{0,2}"

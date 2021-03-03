@@ -49,6 +49,7 @@
                         </div>
                         
                     </div>
+                </div>
                     <div class="card-body">
                             <form method="POST" action="{{route('combustivel.abastecimento', [$combustivel->id])}}">
                                 @csrf

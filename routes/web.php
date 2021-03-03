@@ -19,7 +19,7 @@ use App\Models\Venda;
 */
 
 Route::get('/', function () {
-    $combustiveis = Combustivel::withTrashed()->get();
+    $combustiveis = Combustivel::all();
     $vendas =  Venda::join('combustiveis_bombas', 'id_combustivel_bomba', '=', 'combustiveis_bombas.id')
     		->join('combustiveis', 'id_combustivel', '=', 'combustiveis.id')
     		->join('bombas', 'id_bomba', '=', 'bombas.id')

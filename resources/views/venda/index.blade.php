@@ -220,12 +220,12 @@
    
 
     <script type="text/javascript">
-        document.getElementById('card'+{{$combustivel->id}}).classList.add('bg-dark');
-        document.getElementById('valor').value = {{$combustivel->preco}}.toFixed(2);
-        document.getElementById('combustivel').value = {{$combustivel->id}};
-        var precocombustivel = {{$combustivel->preco}};
-        $('#quantidade').inputmask({max: {{$combustivel->qtd_restante}}});
-        $('#valor').inputmask({max: ({{$combustivel->qtd_restante}}/precocombustivel).toFixed(2)});
+        document.getElementById('card'+{{@$combustivel->id}}).classList.add('bg-dark');
+        document.getElementById('valor').value = {{@$combustivel->preco}}.toFixed(2);
+        document.getElementById('combustivel').value = {{@$combustivel->id}};
+        var precocombustivel = {{@$combustivel->preco}};
+        $('#quantidade').inputmask({max: {{@$combustivel->qtd_restante}}});
+        $('#valor').inputmask({max: ({{@$combustivel->qtd_restante}}/precocombustivel).toFixed(2)});
         $('#quantidade').inputmask('decimal', {
             mask: "9{1,6}.9{0,2}",
             min: 0.01
