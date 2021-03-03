@@ -47,9 +47,9 @@
 ### Mobile
 
 <p align="center">
-  <img alt="login-mobile" title="#login-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-mobile.png" width="200px">
+  <img alt="login-mobile" title="#login-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-mobile.jpeg" width="200px">
 
-  <img alt="home-mobile" title="#home-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-mobile.png" width="200px">
+  <img alt="home-mobile" title="#home-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-mobile.jpeg" width="200px">
 </p>
 
 ### Web
