@@ -19,7 +19,7 @@
 
 ## 💻 Sobre o projeto
 
-⛽️ Digital Fuel Station - O projeto consiste na criação de um posto de gasolina inteligente. Ao observar que gerir um posto não é uma tarefa fácil sem que haja a inserção de tecnologia, resolvemos lançar um sistema para automatizar postos de combustível. Além de facilitar o controle geral, o dono terá acesso a diversos dados importantes que servirão para tomar as melhores decisões.
+⛽️ Digital Fuel Station - O projeto consiste na criação de um posto de gasolina inteligente. Ao observar que gerir um posto não é uma tarefa fácil sem que haja a inserção de tecnologia, resolvemos lançar um sistema para automatizar postos de combustível. Além de facilitar o controle geral, o dono terá acesso a diversos dados importantes que servirão para tomar as melhores decisões. Link da aplicação: http://digitalfuelstation.herokuapp.com/
 
 ---
 
