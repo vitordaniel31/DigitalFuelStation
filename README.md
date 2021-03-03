@@ -61,6 +61,39 @@
 
 ---
 
+## 🚀 Como executar o projeto
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Xampp](https://www.apachefriends.org/pt_br/index.html). 
+Além disto é bom ter um editor para trabalhar com o código como [Sublime Text](https://www.sublimetext.com/)
+
+#### 🎲 Rodando o Backend (servidor)
+
+```bash
+
+# Clone este repositório
+$ git clone https://github.com/vitordaniel31/DigitalFuelStation.git
+
+# Acesse a pasta do projeto no terminal/cmd
+$ cd DigitalFuelStation
+
+$ composer install
+
+#crie o arquivo .env com o conteúdo do aruqivo .env.exemple na pasta raiz do projeto e configure-o
+
+#gere a api_key
+$ php artisan key:generate
+
+#inicie o servidor
+$ php artisan serve
+# O servidor inciará na porta:8000 - acesse http://localhost:8000
+
+```
+
+---
+
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
