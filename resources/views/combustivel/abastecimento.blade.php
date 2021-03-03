@@ -11,7 +11,15 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
+
                         <div class="col-xl-12 col-md-12 mb-12 " >
+                            @foreach (['danger', 'success'] as $msg)
+                                        @if(Session::has('alert-' . $msg))
+                                          <div class="alert alert-{{ $msg }}" role="alert">
+                                            {{ Session::get('alert-' . $msg) }}
+                                          </div>
+                                        @endif
+                                    @endforeach
                             <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">

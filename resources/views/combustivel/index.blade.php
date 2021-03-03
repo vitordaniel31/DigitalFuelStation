@@ -50,7 +50,7 @@
                                         @foreach ($combustiveis as $combustivel)
                                         <tr>
                                             <td>{{$combustivel->combustivel}}</td>
-                                            <td>R$ {{$combustivel->preco}}</td>
+                                            <td>R$ {{str_replace(".", ",", $combustivel->preco)}}</td>
                                             <td>{{$combustivel->capacidade}} Litros</td>
                                             <td>{{$combustivel->qtd_restante}} Litros</td>
                                             <td>@if($combustivel->trashed())Inativo @else Ativo @endif</td>

@@ -50,7 +50,7 @@ class CombustivelController extends Controller
             'capacidade' => $request->capacidade,
             'qtd_restante' => 0,
         ]);
-        return redirect(route('combustivel.index'))->with('alert-success', 'Combustível registrado com sucesso!');
+        return redirect(route('combustivel.abastecer', [$combustivel->id]))->with('alert-success', 'Combustível registrado com sucesso!');
     }
 
     /**
@@ -158,7 +158,7 @@ class CombustivelController extends Controller
     {
         $combustivel = Combustivel::find($id);
         $request->validate([
-            'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0|max:' . $combustivel->capacidade - $combustivel->qtd_restante,
+            'quantidade' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,2})?$/|min:0.01|max:' . $combustivel->capacidade - $combustivel->qtd_restante,
         ]);
         $combustivel->update([
             'qtd_restante' => $combustivel->qtd_restante + $request->quantidade,
