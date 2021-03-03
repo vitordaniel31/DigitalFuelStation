@@ -191,9 +191,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <table>
   <tr>
-    <td align="center"><a><img style="border-radius: 50%;" src="{{asset('DigitalFuelStation/biancaveras.jpeg')}}" width="100px;" alt=""/><br /><sub><b>Bianca Veras</b></sub></a><br /></td>
-    <td align="center"><a><img style="border-radius: 50%;" src="{{asset('DigitalFuelStation/annakaroline.jpeg')}}" width="100px;" alt=""/><br /><sub><b>Anna Karoline</b></sub></a><br /></td>
-    <td align="center"><a><img style="border-radius: 50%;" src="{{asset('DigitalFuelStation/samaraluiza.jpeg')}}" width="100px;" alt=""/><br /><sub><b>Sâmara Luíza</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/biancaveras.jpeg" width="100px;" alt=""/><br /><sub><b>Bianca Veras</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/annakaroline.jpeg" width="100px;" alt=""/><br /><sub><b>Anna Karoline</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/samaraluiza.jpeg" width="100px;" alt=""/><br /><sub><b>Sâmara Luíza</b></sub></a><br /></td>
     
   </tr>
 </table>
