@@ -81,6 +81,9 @@
                                     <div class="text-center ">
                                         <a class="small text-dark" href="{{route('password.request')}}">Esqueceu sua senha?</a>
                                     </div>
+                                    <div class="text-center ">
+                                        <a class="small text-dark" href="{{route('login')}}">Login do administrador</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

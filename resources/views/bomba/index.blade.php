@@ -12,9 +12,11 @@
                         <!-- Area Chart -->
                         <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
+                                <button title="Nova bomba" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.create')}}'">Nova bomba</button>
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-danger">Bombas Cadastradas</h6>
                         </div>
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -46,7 +48,7 @@
                                             </td>
                                             <td>@if($bomba->trashed())Inativa @else Ativa @endif</td>
                                             <td>@if(!$bomba->trashed())
-                                                <button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.edit', [$bomba->id])}}'">Editar</i></button>
+                                                <button title="Editar" class="btn btn-secondary " onclick="window.location.href='{{route('bomba.edit', [$bomba->id])}}'">Editar</button>
                                              <form action="{{route('bomba.destroy', [$bomba->id])}}" method="POST" style="display: inline;">
                                                       @csrf
                                                       @method('DELETE')

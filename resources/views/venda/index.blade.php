@@ -161,7 +161,7 @@
                                     <div class="col-md-3">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Valor (R$)</label>
-                                            <input onkeyup="atualizaValor()" type="text" id="valor" name="valor" class="form-control">
+                                            <input onkeyup="atualizaValor()" type="text" id="valor" name="valor" class="form-control text-right">
                                             @error('valor')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
@@ -172,7 +172,7 @@
                                     <div class="col-md-3">
                                          <div class="form-group">
                                             <label class="bmd-label-floating">Quantidade (Litros)</label>
-                                            <input onkeyup="atualizaQtd()" type="text" id="quantidade" value="1" name="quantidade" class="form-control">
+                                            <input onkeyup="atualizaQtd()" type="text" id="quantidade" value="1" name="quantidade" class="form-control text-right">
                                             @error('quantidade')
                                                 <div class="alert alert-danger" role="alert">
                                                     {{ $message }}
@@ -242,14 +242,14 @@
                     document.getElementById('combustivel').value = 0;
 
                 }
+                $('#quantidade').inputmask('decimal', {max: restante});
+                $('#valor').inputmask('decimal', {max: (restante/preco).toFixed(2)});
                 document.getElementById('quantidade').max
                 document.getElementById('combustivel').value = id;
                 document.getElementById('card'+id).classList.add('bg-dark');
                 var valor = preco*document.getElementById('quantidade').value;
                 document.getElementById('valor').value = valor.toFixed(2); 
                 precocombustivel = preco;
-                $('#quantidade').inputmask('decimal', {max: restante});
-                $('#valor').inputmask('decimal', {max: (restante/preco).toFixed(2)});
             } 
         }
 
