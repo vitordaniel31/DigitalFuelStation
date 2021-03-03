@@ -82,7 +82,7 @@ $ git clone https://github.com/vitordaniel31/DigitalFuelStation.git
 $ cd DigitalFuelStation
 
 # Vá para a pasta da aplicação Front End
-$ cd web
+$ composer install
 
 # Instale as dependências
 $ npm install
