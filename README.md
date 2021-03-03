@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="banner" title="#banner" src="{{asset('DigitalFuelStation/imglogin.png')}}" />
+    <img alt="banner" title="#banner" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/imglogin.png" />
 </h1>
 
 <h4 align="center"> 
@@ -47,9 +47,9 @@
 ### Mobile
 
 <p align="center">
-  <img alt="login-mobile" title="#login-mobile" src="./imagens/login-mobile.png" width="200px">
+  <img alt="login-mobile" title="#login-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-mobile.png" width="200px">
 
-  <img alt="home-mobile" title="#home-mobile" src="./imagens/home-mobile.png" width="200px">
+  <img alt="home-mobile" title="#home-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-mobile.png" width="200px">
 </p>
 
 ### Web
