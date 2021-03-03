@@ -10,7 +10,6 @@
  <a href="#-sobre-o-projeto">Sobre</a> •
  <a href="#-funcionalidades">Funcionalidades</a> •
  <a href="#-layout">Layout</a> • 
- <a href="#-como-executar-o-projeto">Como executar</a> • 
  <a href="#-tecnologias">Tecnologias</a> • 
  <a href="#-contribuidores">Contribuidores</a> • 
  <a href="#-autor">Autor</a> • 
@@ -62,52 +61,15 @@
 
 ---
 
-## 🚀 Como executar o projeto
-
-### Pré-requisitos
-
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
-[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
-Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
-
-
-#### 🧭 Rodando a aplicação
-
-```bash
-
-# Clone este repositório
-$ git clone https://github.com/vitordaniel31/DigitalFuelStation.git
-
-# Acesse a pasta do projeto no seu terminal/cmd
-$ cd DigitalFuelStation
-
-# Vá para a pasta da aplicação Front End
-$ composer install
-
-# Instale as dependências
-$ npm install
-
-# Execute a aplicação em modo de desenvolvimento
-$ npm run start
-
-# A aplicação será aberta na porta:3000 - acesse http://localhost:3000
-
-```
-
----
-
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-#### **Website**  ([React](https://reactjs.org/)  +  [TypeScript](https://www.typescriptlang.org/))
-
--   **[React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)**
--   **[React Icons](https://react-icons.github.io/react-icons/)**
--   **[Axios](https://github.com/axios/axios)**
--   **[Leaflet](https://react-leaflet.js.org/en/)**
--   **[React Leaflet](https://react-leaflet.js.org/)**
--   **[React Dropzone](https://github.com/react-dropzone/react-dropzone)**
+-   **[GitHub](https://github.com/)**
+-   **[Heroku](https://www.heroku.com/)**
+-   **[Laravel](https://laravel.com/)**
+-   **[MySQL](https://www.mysql.com/)**
+-   **[npm](https://www.npmjs.com/)**
 
 > Veja o arquivo  [package.json](https://github.com/vitordaniel31/DigitalFuelStation/blob/main/package.json)
 
