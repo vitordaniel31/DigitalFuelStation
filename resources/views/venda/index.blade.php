@@ -230,9 +230,9 @@
             mask: "9{1,6}.9{0,2}",
             min: 0.01
         });
-        $('#valor').inputmask({
+        $('#valor').inputmask('decimal', {
             mask: "9{1,6}.9{0,2}",
-            min: 0.01,
+            min: 0.01
         });
 
         function select(id, preco, restante){
