@@ -33,7 +33,7 @@
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-danger" role="progressbar"
-                                                            style="width: {{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%" aria-valuenow="{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}" aria-valuemin="0"
+                                                            style="width: {{number_format(($combustivel->qtd_restante/$combustivel->capacidade)*100, 2, ',', '')}}%" aria-valuenow="{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
@@ -49,7 +49,6 @@
                         </div>
                         
                     </div>
-                </div>
                     <div class="card-body">
                             <form method="POST" action="{{route('combustivel.abastecimento', [$combustivel->id])}}">
                                 @csrf
