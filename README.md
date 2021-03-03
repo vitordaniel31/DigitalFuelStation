@@ -27,9 +27,9 @@
 ## ⚙️ Funcionalidades
 
 - [x] O administrador do posto tem acesso ao seu posto virtual contendo:
-  - [x] Cadastro e visualização de combuistíveis 
-  - [x] Cadastro e visualização de bombas
-  - [x] Tabela de vendas 
+  - [x] Cadastro e visualização de combustíveis; 
+  - [x] Cadastro e visualização de bombas;
+  - [x] Tabela de vendas;
   - [x] Com isso, ele poderá: 
     - Gerenciar seu posto online;
     - Não necessitará de frentistas.
