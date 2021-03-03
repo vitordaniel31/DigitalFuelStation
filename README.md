@@ -88,7 +88,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <a>
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/51799954?s=400&u=642e80143821cdf21858ef95e54fc020df455afc&v=4" width="100px;" alt=""/>
- <br />
  <sub><b>Vitor Daniel</b></sub></a> <a href="https://github.com/vitordaniel31" title="">🚀</a>
 
 ---
