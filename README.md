@@ -118,7 +118,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
   </tr>
 </table>
 
-## 🙋 Autor
+## ✒️ Autor
 
 <a>
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/51799954?s=400&u=642e80143821cdf21858ef95e54fc020df455afc&v=4" width="100px;" alt=""/>
