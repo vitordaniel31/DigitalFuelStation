@@ -55,9 +55,9 @@
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="login-web" title="#login-web" src="./imagens/login-web.png" width="400px">
+  <img alt="login-web" title="#login-web" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-web.png" width="400px">
 
-  <img alt="home-web" title="#home-web" src="./imagens/home-web.png" width="400px">
+  <img alt="home-web" title="#home-web" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-web.png" width="400px">
 </p>
 
 ---
