@@ -81,16 +81,6 @@
                                   </div>
                                 @endif
                             @endforeach
-                            @error('valor')
-                                <div class="alert alert-danger" role="alert">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                            @error('quantidade')
-                                <div class="alert alert-danger" role="alert">
-                                    {{ $message }}
-                                </div>
-                            @enderror
                             @error('id_combustivel')
                                 <div class="alert alert-danger" role="alert">
                                     {{ $message }}
@@ -122,7 +112,7 @@
                                             @foreach ($combustiveis as $combustivel)
                                                 <div class="col-xl-4 col-md-6 mb-4">
                                                   
-                                                        <div id="card{{$combustivel->id}}" onclick="select({{$combustivel->id}}, {{$combustivel->preco}}, {{$combustivel->qtd_restante}});" class="card border-left-danger shadow h-100 py-2">
+                                                        <div id="card{{$combustivel->id}}" @if($combustivel->qtd_restante>0) onclick="select({{$combustivel->id}}, {{$combustivel->preco}}, {{$combustivel->qtd_restante}});" @endif class="card border-left-danger shadow h-100 py-2">
                                                             <div class="card-body">
                                                                 <div class="row no-gutters align-items-center">
                                                                     <div class="col mr-2">
@@ -133,7 +123,7 @@
                                                                             <div class="col">
                                                                                 <div class="progress progress-sm mr-2">
                                                                                     <div class="progress-bar bg-danger" role="progressbar"
-                                                                                        style="width: {{($combustivel->qtd_restante/$combustivel->capacidade)*100}}%" aria-valuenow="{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}" aria-valuemin="0"
+                                                                                        style="width: {{number_format(($combustivel->qtd_restante/$combustivel->capacidade)*100, 2, '.', '')}}%" aria-valuenow="{{($combustivel->qtd_restante/$combustivel->capacidade)*100}}" aria-valuemin="0"
                                                                                         aria-valuemax="100"></div>
                                                                                 </div>
                                                                             </div>
@@ -220,9 +210,14 @@
    
 
     <script type="text/javascript">
-        document.getElementById('card'+{{@$combustivel->id}}).classList.add('bg-dark');
-        document.getElementById('valor').value = {{@$combustivel->preco}}.toFixed(2);
-        document.getElementById('combustivel').value = {{@$combustivel->id}};
+        
+        @if($combustivel->qtd_restante>0)
+            document.getElementById('card'+{{@$combustivel->id}}).classList.add('bg-dark');
+            document.getElementById('valor').value = {{@$combustivel->preco}}.toFixed(2);
+            document.getElementById('combustivel').value = {{@$combustivel->id}};
+        @else
+            document.getElementById('valor').value = 0.00;
+        @endif
         var precocombustivel = {{@$combustivel->preco}};
         $('#quantidade').inputmask({max: {{@$combustivel->qtd_restante}}});
         $('#valor').inputmask({max: ({{@$combustivel->qtd_restante}}/precocombustivel).toFixed(2)});
