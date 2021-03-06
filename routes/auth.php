@@ -40,7 +40,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.update');
 
-/*Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
+Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->middleware('auth')
                 ->name('verification.notice');
 
@@ -57,7 +57,7 @@ Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
                 ->name('password.confirm');
 
 Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store'])
-                ->middleware('auth');*/
+                ->middleware('auth');
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
