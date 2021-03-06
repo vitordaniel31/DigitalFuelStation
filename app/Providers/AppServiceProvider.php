@@ -14,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if(config('app.env') !== 'local') {
+            \URL::forceScheme('https');
+        }
     }
 
     /**
@@ -22,10 +24,8 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(UrlGenerator $url)
+    public function boot()
     {
-        if(env('REDIRECT_HTTPS')){
-            $url->forceScheme('https');
-        }
+        //
     }
 }
