@@ -8,7 +8,7 @@ class RedirectHttps
 {   
     public function handle($request, Closure $next)
     {
-        if (!$request->secure() && env('APP_ENV') !== 'local') 
+        if (!$request->secure() && env('APP_ENV') === 'dev') 
         {
             return redirect()->secure($request->getRequestUri());
         }
