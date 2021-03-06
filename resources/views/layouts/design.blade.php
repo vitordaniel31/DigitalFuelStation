@@ -23,6 +23,8 @@
     <!-- Custom styles for this page -->
     <link href="{{asset('DigitalFuelStation/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body id="page-top">
