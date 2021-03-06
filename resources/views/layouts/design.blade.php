@@ -49,7 +49,7 @@
             </li>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link collapsed" href="index.html" data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-gas-pump"></i>
                     <span>Bombas</span></a>
 
@@ -64,7 +64,7 @@
             
             <hr class="sidebar-divider my-0">
              <li class="nav-item active">
-                <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-burn"></i>
                     <span>Combustíveis</span></a>
 
@@ -81,7 +81,7 @@
              <li class="nav-item active">
                 <form action="{{route('logout')}}" id="logout" method="POST">
                   @csrf
-                  <a class="nav-link" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
+                  <a class="nav-link" href="#" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
                     <span>Sair</span></a>
                 </form>
             </li>
@@ -114,7 +114,7 @@
                              <li class="nav-item active">
                                 <form action="{{route('logout')}}" id="logout1" method="POST">
                                   @csrf
-                                  <a class="nav-link" role="button"
+                                  <a href="#" class="nav-link" role="button"
                                 aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('logout1').submit();"><span class="mr-2 d-none d-lg-inline text-gray-600 small">Sair</span>
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i></a>
                                 </form>
