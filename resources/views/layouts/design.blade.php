@@ -78,12 +78,12 @@
             </li>
             <hr class="sidebar-divider my-0">
             @if(Auth::check())
-             <li class="nav-item">
+             <li class="nav-item active">
                 <form action="{{route('logout')}}" id="logout" method="POST">
-                  @csrf
-                </form>
-                <a class="nav-link" role="button" href="#" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
+                    @csrf
+                    <a href="#" class="nav-link" role="button" aria-haspopup="true" aria-expanded="false" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
                     <span>Sair</span></a>
+                </form>
             </li>
             @endif
 
