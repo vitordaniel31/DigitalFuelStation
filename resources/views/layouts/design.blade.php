@@ -23,8 +23,6 @@
     <!-- Custom styles for this page -->
     <link href="{{asset('DigitalFuelStation/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
 </head>
 
 <body id="page-top">
@@ -80,12 +78,12 @@
             </li>
             <hr class="sidebar-divider my-0">
             @if(Auth::check())
-             <li class="nav-item active">
+             <li class="nav-item">
                 <form action="{{route('logout')}}" id="logout" method="POST">
                   @csrf
-                  <a class="nav-link" href="#" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
-                    <span>Sair</span></a>
                 </form>
+                <a class="nav-link" role="button" href="#" onclick="document.getElementById('logout').submit();"><i class="fas fa-sign-out-alt"></i>
+                    <span>Sair</span></a>
             </li>
             @endif
 
@@ -113,7 +111,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             @if(Auth::check())
-                             <li class="nav-item active">
+                             <li class="nav-item ">
                                 <form action="{{route('logout')}}" id="logout1" method="POST">
                                   @csrf
                                   <a href="#" class="nav-link" role="button"
