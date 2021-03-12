@@ -55,7 +55,7 @@
                                             <label for="bomba">Bomba:</label>
                                           <select name="codigo" class="form-control browser-default custom-select" id="bomba" required>
                                             @foreach ($bombas as $bomba)
-                                            <option value="{{$bomba->codigo}}">Bomba {{$bomba->codigo}}</option>
+                                            <option value="{{$bomba}}">Bomba {{$bomba}}</option>
                                             @endforeach
                                             
                                           </select>

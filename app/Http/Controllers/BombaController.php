@@ -188,7 +188,7 @@ class BombaController extends Controller
     }
 
     public function createLogin(){
-        $bombas = Bomba::join('combustiveis_bombas', 'id_bomba', '=', 'bombas.id')->whereNull('combustiveis_bombas.deleted_at')->get();
+        $bombas = Bomba::join('combustiveis_bombas', 'id_bomba', '=', 'bombas.id')->whereNull('combustiveis_bombas.deleted_at')->distinct()->pluck('codigo');
         return view('bomba.login')->with('bombas', $bombas);
     }
 
